@@ -1,0 +1,44 @@
+{
+  "name": "vue-mqtt-client-parent",
+  "version": "1.0.0",
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ]
+  },
+  "installConfig": {
+    "hoistingLimits": "dependencies"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jc-lab/vue-mqtt-client.git"
+  },
+  "author": "Joseph Lee <joseph@jc-lab.net>",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/jc-lab/vue-mqtt-client/issues"
+  },
+  "homepage": "https://github.com/jc-lab/vue-mqtt-client#readme",
+  "devDependencies": {
+    "@types/jest": "^24.0.19",
+    "@types/node": "^16.11.12",
+    "@typescript-eslint/eslint-plugin": "^5.3.1",
+    "@typescript-eslint/parser": "^5.3.1",
+    "bundle-declarations-webpack-plugin": "^3.1.0",
+    "dts-bundle-generator": "^6.12.0",
+    "eslint": "^7.0.0",
+    "eslint-plugin-import": "^2.25.3",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^5.1.1",
+    "eslint-plugin-standard": "^5.0.0",
+    "ts-loader": "^9.3.1",
+    "typescript": "~4.6.4",
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.10.0",
+    "webpack-node-externals": "^3.0.0"
+  },
+  "packageManager": "yarn@3.2.2"
+}

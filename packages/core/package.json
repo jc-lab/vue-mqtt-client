@@ -1,0 +1,41 @@
+{
+  "name": "vue-mqtt-client",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "typings": "types/index.d.ts",
+  "scripts": {
+    "build": "yarn build:js && yarn build:dts",
+    "build:dts": "tsc --declaration --emitDeclarationOnly --outDir types && copyfiles -u 1 \"src/**/*.d.ts\" types",
+    "build:js": "tsc --declaration --outDir dist && copyfiles -u 1 \"src/**/*.d.ts\" \"src/**/*.js\" dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jc-lab/vue-mqtt-client.git"
+  },
+  "author": "Joseph Lee <joseph@jc-lab.net>",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/jc-lab/vue-mqtt-client/issues"
+  },
+  "homepage": "https://github.com/jc-lab/vue-mqtt-client#readme",
+  "dependencies": {
+    "vue-demi": "^0.13.6",
+    "wait-signal": "^1.1.2"
+  },
+  "devDependencies": {
+    "copyfiles": "^2.4.1",
+    "mqtt": "^4.3.7",
+    "rimraf": "^3.0.2",
+    "vue": "^2.6.11"
+  },
+  "peerDependencies": {
+    "mqtt": "*",
+    "vue": "^2.6.11"
+  },
+  "peerDependenciesMeta": {
+    "@vue/composition-api": {
+      "optional": true
+    }
+  }
+}
