@@ -1,7 +1,3 @@
-import Vue from 'vue';
-import {
-  CombinedVueInstance
-} from 'vue/types/vue'
 import {
   VueMqttClientProvider
 } from './plugin';
@@ -12,21 +8,25 @@ import {
   DollarMqtt
 } from './dollar-mqtt';
 
-type DataDef<Data, Props, V> = Data | ((this: Readonly<Props> & V) => Data)
-
-declare module 'vue/types/options' {
-  interface ComponentOptions<V extends Vue, Data, Methods, Computed, PropsDef, Props> {
+declare module '@vue/runtime-core' {
+  interface ComponentOptionsBase<
+    Props,
+    RawBindings,
+    D,
+    C extends ComputedOptions,
+    M extends MethodOptions,
+    Mixin extends ComponentOptionsMixin,
+    Extends extends ComponentOptionsMixin,
+    E extends EmitsOptions,
+    EE extends string = string,
+    // eslint-disable-next-line @typescript-eslint/ban-types
+    Defaults = {}
+    > {
     mqttClientProvider?: VueMqttClientProvider;
-    mqtt?: VueMqttClientComponentOptions<
-      Data extends DataDef<infer D, any, any>
-        ? CombinedVueInstance<V, D, Methods, Computed, Props>
-        : CombinedVueInstance<V, Data, Methods, Computed, Props>
-      >
+    mqtt?: VueMqttClientComponentOptions<CreateComponentPublicInstance<Props, RawBindings, D, C, M, Mixin, Extends, E, Props, Defaults, false>>
   }
-}
 
-declare module 'vue/types/vue' {
-  interface Vue {
+  interface ComponentCustomProperties {
     '$mqttClientProvider': VueMqttClientProvider;
     '$mqtt': DollarMqtt;
   }

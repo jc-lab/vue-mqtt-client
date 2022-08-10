@@ -1,15 +1,12 @@
-import { VueConstructor } from 'vue';
+import {
+  ComponentPublicInstance
+} from '@vue/runtime-core';
 
-type InstanceType<T extends new (...args: any) => any> = T extends new (...args: any) => infer R ? R : any;
+import {
+  reactive
+} from '@vue/reactivity';
 
-export type ComponentPublicInstance = InstanceType<VueConstructor>;
-
-let vueConstructor!: VueConstructor
-
-export function setVueConstructor(c: VueConstructor) {
-  vueConstructor = c;
-}
-
-export function reactive<T>(object: T): T {
-  return vueConstructor.observable(object);
-}
+export {
+  ComponentPublicInstance,
+  reactive
+};

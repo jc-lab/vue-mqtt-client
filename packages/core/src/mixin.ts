@@ -1,31 +1,27 @@
-import Vue from 'vue';
-import './vue';
+import { defineComponent } from '@vue/runtime-core';
+import {DollarMqtt} from './dollar-mqtt';
 
-export const VueMqttClientMixin = Vue.extend({
+export const VueMqttClientMixin = defineComponent({
   data: () => {
     return {
-      started: false,
+      started: false
     };
+  },
+  beforeCreate() {
+    this.$mqtt = new DollarMqtt(this, this.$mqttClientProvider);
   },
   mounted() {
     const mqttOptions = this.$options.mqtt;
     const dollarMqtt = this.$mqtt;
-    console.log('mqttOptions: ', {
-      this: this,
-      mqttOptions,
-      dollarMqtt
-    });
-
     if (mqttOptions) {
       dollarMqtt.start(mqttOptions);
       this.started = true;
     }
   },
-  beforeDestroy() {
+  unmounted() {
     if (this.started) {
       const dollarMqtt = this.$mqtt;
       dollarMqtt.stop();
-      console.log('STOPPP')
     }
   }
 });

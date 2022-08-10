@@ -1,6 +1,6 @@
 import {
-  VueConstructor
-} from 'vue';
+  App
+} from '@vue/runtime-core';
 
 import {
   VueMqttClientMixin
@@ -11,9 +11,7 @@ import {
 import {
   PrivateVueMqttClientProvider
 } from './provider';
-import {DollarMqtt} from './dollar-mqtt';
 import {IVueMqttClientProvider} from './types';
-import {setVueConstructor} from './vue-helper';
 
 const symInstalled = Symbol('vue-mqtt-client installed');
 
@@ -22,15 +20,9 @@ export class VueMqttClientProvider extends PrivateVueMqttClientProvider implemen
     super(options);
   }
 
-  // vue-2 install
-  static install(vueConstructor: VueConstructor, options: VueMqttClientOptions) {
-    if (!vueConstructor) {
-      return ;
-    }
-
-    setVueConstructor(vueConstructor);
-
-    const vueConfig: any = vueConstructor.config;
+  // vue-3 install
+  install(app: App, ...options: any[]) {
+    const vueConfig: any = app.config.globalProperties;
     if (vueConfig[symInstalled]) {
       return ;
     }
@@ -38,21 +30,9 @@ export class VueMqttClientProvider extends PrivateVueMqttClientProvider implemen
       value: true
     });
 
-    const instance = new VueMqttClientProvider(options);
-    Object.defineProperty(vueConstructor.prototype, '$mqttClientProvider', {
-      value: instance
+    Object.assign(app.config.globalProperties, {
+      $mqttClientProvider: this
     });
-
-    Object.defineProperty(vueConstructor.prototype, '$mqtt', {
-      get () {
-        const provider = this.$mqttClientProvider;
-        if (!this.$_mqtt) {
-          this.$_mqtt = new DollarMqtt(this, provider);
-        }
-        return this.$_mqtt
-      }
-    });
-
-    vueConstructor.mixin(VueMqttClientMixin);
+    app.mixin(VueMqttClientMixin);
   }
 }

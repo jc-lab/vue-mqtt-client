@@ -10,7 +10,7 @@
   "dependencies": {
     "core-js": "^3.6.5",
     "mqtt": "^4.3.7",
-    "vue": "^2.6.11",
+    "vue": "^3.0.0",
     "vue-mqtt-client": "workspace:^"
   },
   "devDependencies": {
@@ -20,10 +20,10 @@
     "@vue/cli-plugin-eslint": "~4.5.15",
     "@vue/cli-plugin-typescript": "~4.5.15",
     "@vue/cli-service": "~4.5.15",
+    "@vue/compiler-sfc": "^3.0.0",
     "@vue/eslint-config-typescript": "^7.0.0",
     "eslint": "^6.7.2",
-    "eslint-plugin-vue": "^6.2.2",
-    "typescript": "~4.1.5",
-    "vue-template-compiler": "^2.6.11"
+    "eslint-plugin-vue": "^7.0.0",
+    "typescript": "~4.1.5"
   }
 }

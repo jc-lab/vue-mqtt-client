@@ -26,6 +26,6 @@ jobs:
       - name: Publish
         run: |
           npm config set '//registry.npmjs.org/:_authToken' "${NPM_TOKEN}"
-          yarn workspace vue-mqtt-client npm publish --access=public
+          yarn workspace vue-mqtt-client npm publish --access=public --tag=next
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

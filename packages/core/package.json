@@ -29,10 +29,10 @@
     "copyfiles": "^2.4.1",
     "mqtt": "^4.3.7",
     "rimraf": "^3.0.2",
-    "vue": "^2.6.11"
+    "vue": "^3.0.0"
   },
   "peerDependencies": {
     "mqtt": "*",
-    "vue": "^2.6.11"
+    "vue": "^3.0.0"
   }
 }
