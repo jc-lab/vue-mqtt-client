@@ -19,20 +19,24 @@ yarn add vue-mqtt-client@next
 main.ts
 
 ```typescript
-import Vue from 'vue'
-import * as mqtt from 'mqtt'
+import { createApp } from 'vue'
+import App from './App.vue'
+import * as mqtt from 'mqtt';
 import {
   VueMqttClientProvider
-} from 'vue-mqtt-client'
+} from 'vue-mqtt-client';
 
 const mqttClient = mqtt.connect('ws://localhost:9001/mqtt', {
   username: 'test',
   password: 'test'
-})
-
-Vue.use(VueMqttClientProvider, {
-  client: mqttClient
 });
+const mqttProvider = new VueMqttClientProvider({
+  client: mqttClient,
+});
+
+createApp(App)
+  .use(mqttProvider)
+  .mount('#app')
 
 // or vueInstance.$mqttClientProvider.setClient()
 ```
@@ -40,9 +44,9 @@ Vue.use(VueMqttClientProvider, {
 Component.vue
 
 ```typescript
-import Vue from 'vue';
+import {defineComponent} from '@vue/runtime-core';
 
-export default Vue.extend({
+export default defineComponent({
   name: 'HelloWorld',
   mqtt: {
     subscribe: [
@@ -53,7 +57,7 @@ export default Vue.extend({
             userId: this.userId,
           };
         },
-        onMessage (payload, packet) {
+        onMessage(payload, packet) {
           console.log('onMessage: ', {
             payload,
             packet,
