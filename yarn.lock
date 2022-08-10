@@ -13772,7 +13772,6 @@ __metadata:
     mqtt: ^4.3.7
     rimraf: ^3.0.2
     vue: ^3.0.0
-    wait-signal: ^1.1.2
   peerDependencies:
     mqtt: "*"
     vue: ^3.0.0
@@ -13806,13 +13805,6 @@ __metadata:
     "@vue/server-renderer": 3.2.37
     "@vue/shared": 3.2.37
   checksum: cd20069c311e1de54b7d9b5d9c6021f1a6a70b0cf05cf7fc36b59c02623cbdc7c0075fb2c9e17859c77c86b15c596a447ee16c70064e9f2feba2df27139260b9
-  languageName: node
-  linkType: hard
-
-"wait-signal@npm:^1.1.2":
-  version: 1.1.2
-  resolution: "wait-signal@npm:1.1.2"
-  checksum: a0d327a8c263f0656d8df8d8fd1caa1366da5bcc21c922897d01e1a199ce0821f1f9e8e6a2dc1f9e6ee50fcb4471f187941c4b38eae07479a764cf5e7eb85aca
   languageName: node
   linkType: hard
 
