@@ -12,7 +12,7 @@ import {
 
 interface SubscribeContext {
   topic: string;
-  options: SubscribeOption<any>;
+  options: SubscribeOption;
   unwatchVariables: Function | null;
   variables: object | undefined;
   unsubscribe: Function | null;
@@ -53,7 +53,7 @@ export class DollarMqtt {
     this.subscribes = {};
   }
 
-  private applySubscribe(item: SubscribeOption<any>) {
+  private applySubscribe(item: SubscribeOption) {
     if (this.subscribes[item.topic]) {
       throw new Error('Duplicated topic: ' + item.topic);
     }

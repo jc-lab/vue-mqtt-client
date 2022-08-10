@@ -6,9 +6,9 @@ export interface VueMqttClientOptions {
 }
 
 type VariablesResult = Record<string, any>;
-type VariableCallback<Instance> = (this: Instance) => VariablesResult;
+type VariableCallback = () => VariablesResult;
 
-export interface SubscribeOption<Instance> {
+export interface SubscribeOption {
   /**
    * e.g. 'user/{userId}/hello/world'
    * userId is variable
@@ -18,13 +18,13 @@ export interface SubscribeOption<Instance> {
    * watch variables deep
    */
   deep?: boolean;
-  variables?: VariablesResult | VariableCallback<Instance>;
+  variables?: VariablesResult | VariableCallback;
   skip?: () => boolean;
-  onMessage?: (this: Instance, payload: any, packet: IPublishPacket) => void;
+  onMessage?: (payload: any, packet: IPublishPacket) => void;
 }
 
-interface PrivateVueMqttClientComponentOptions<Instance> {
-  subscribe?: SubscribeOption<Instance>[];
+interface PrivateVueMqttClientComponentOptions {
+  subscribe?: SubscribeOption[];
 }
 
-export type VueMqttClientComponentOptions<Instance> = PrivateVueMqttClientComponentOptions<Instance> & ThisType<Instance>
+export type VueMqttClientComponentOptions<Instance> = PrivateVueMqttClientComponentOptions & ThisType<Instance>
