@@ -13565,22 +13565,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vue-demi@npm:^0.13.6":
-  version: 0.13.6
-  resolution: "vue-demi@npm:0.13.6"
-  peerDependencies:
-    "@vue/composition-api": ^1.0.0-rc.1
-    vue: ^3.0.0-0 || ^2.6.0
-  peerDependenciesMeta:
-    "@vue/composition-api":
-      optional: true
-  bin:
-    vue-demi-fix: bin/vue-demi-fix.js
-    vue-demi-switch: bin/vue-demi-switch.js
-  checksum: 7712b1f8edad902a8ea99ac307f9dc276ca13cb4394fdc6753c27c32f16e5f4a6d3acaa752bf24d73be0ea972552ad7da4c61314b046fbc248bd9aa26afe2e59
-  languageName: node
-  linkType: hard
-
 "vue-eslint-parser@npm:^7.0.0":
   version: 7.11.0
   resolution: "vue-eslint-parser@npm:7.11.0"
@@ -13670,14 +13654,9 @@ __metadata:
     mqtt: ^4.3.7
     rimraf: ^3.0.2
     vue: ^2.6.11
-    vue-demi: ^0.13.6
-    wait-signal: ^1.1.2
   peerDependencies:
     mqtt: "*"
     vue: ^2.6.11
-  peerDependenciesMeta:
-    "@vue/composition-api":
-      optional: true
   languageName: unknown
   linkType: soft
 
@@ -13715,13 +13694,6 @@ __metadata:
     "@vue/compiler-sfc": 2.7.8
     csstype: ^3.1.0
   checksum: 45fc85a13fc027798ad859fe4a5509b54217ae2f129240fc349a799bd4dbc6848ef8fa9968ab7ef7afcb954735882dbfdeb746673aa3f051e4d7ae555c213a1b
-  languageName: node
-  linkType: hard
-
-"wait-signal@npm:^1.1.2":
-  version: 1.1.2
-  resolution: "wait-signal@npm:1.1.2"
-  checksum: a0d327a8c263f0656d8df8d8fd1caa1366da5bcc21c922897d01e1a199ce0821f1f9e8e6a2dc1f9e6ee50fcb4471f187941c4b38eae07479a764cf5e7eb85aca
   languageName: node
   linkType: hard
 
