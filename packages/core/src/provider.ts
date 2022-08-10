@@ -2,7 +2,6 @@ import * as mqtt from 'mqtt';
 import {VueMqttClientOptions} from './options';
 import {reactive} from './vue-helper';
 import {IVueMqttClientProvider, Stats} from './types';
-import WaitSignal from 'wait-signal';
 
 type Payload = any; // Buffer
 type SubscribeListener = (msg: Payload, packet: mqtt.IPublishPacket) => void;
