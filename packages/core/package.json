@@ -1,14 +1,20 @@
 {
   "name": "vue-mqtt-client",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "",
   "main": "dist/index.js",
   "typings": "types/index.d.ts",
   "scripts": {
     "build": "yarn build:js && yarn build:dts",
     "build:dts": "tsc --declaration --emitDeclarationOnly --outDir types && copyfiles -u 1 \"src/**/*.d.ts\" types",
-    "build:js": "tsc --declaration --outDir dist && copyfiles -u 1 \"src/**/*.d.ts\" \"src/**/*.js\" dist"
+    "build:js": "tsc --declaration --outDir dist && copyfiles -u 1 \"src/**/*.d.ts\" \"src/**/*.js\" dist",
+    "prepack": "copyfiles -f ../../README.md ./"
   },
+  "files": [
+    "README.md",
+    "types",
+    "dist"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jc-lab/vue-mqtt-client.git"
