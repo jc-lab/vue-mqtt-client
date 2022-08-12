@@ -19,7 +19,6 @@ interface SubscribeContext {
 }
 
 export class DollarMqtt {
-  private unwatchClient: Function | null = null;
   private subscribes: Record<string, SubscribeContext> = {};
   private client: mqtt.Client | null = null;
 
@@ -33,15 +32,10 @@ export class DollarMqtt {
     if (options.subscribe) {
       options.subscribe.forEach((item) => this.applySubscribe(item));
     }
-    this.unwatchClient = this.provider.watchClient(this.onClientReady.bind(this));
   }
 
   public stop() {
     this.client = null;
-    if (this.unwatchClient) {
-      this.unwatchClient();
-      this.unwatchClient = null;
-    }
     for (const item of Object.values(this.subscribes)) {
       if (item.unwatchVariables) {
         item.unwatchVariables();
@@ -72,14 +66,20 @@ export class DollarMqtt {
           ? () => item.variables
           : item.variables,
         (variables: any) => {
-          context.variables = variables;
-          this.startSubscribe(context, variables);
+          try {
+            context.variables = variables;
+            this.startSubscribe(context, variables);
+          } catch (e) {
+            console.error(e);
+          }
         },
         {
           immediate: true,
           deep: item.deep || false
         }
       );
+    } else {
+      this.startSubscribe(context, undefined);
     }
 
     this.subscribes[item.topic] = context;
@@ -88,10 +88,6 @@ export class DollarMqtt {
   private startSubscribe(context: SubscribeContext, variables: Record<string, any> | undefined) {
     if (context.unsubscribe) {
       context.unsubscribe();
-    }
-
-    if (!this.client) {
-      return ;
     }
 
     if (context.options.skip) {
@@ -110,12 +106,5 @@ export class DollarMqtt {
         context.options.onMessage.call(this.vm, payload, packet);
       }
     });
-  }
-
-  private onClientReady(client: mqtt.MqttClient) {
-    this.client = client
-    for (const subscribe of Object.values(this.subscribes)) {
-      this.startSubscribe(subscribe, subscribe.variables);
-    }
   }
 }
