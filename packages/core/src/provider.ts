@@ -2,6 +2,7 @@ import * as mqtt from 'mqtt';
 import {VueMqttClientOptions} from './options';
 import {reactive} from './vue-helper';
 import {IVueMqttClientProvider, Stats} from './types';
+import {Router} from './router';
 
 type Payload = any; // Buffer
 type SubscribeListener = (msg: Payload, packet: mqtt.IPublishPacket) => void;
@@ -10,6 +11,7 @@ interface SubscribeContext {
   started: boolean;
   listeners: SubscribeListener[];
   client: mqtt.Client;
+  consumeId: string | null;
 }
 
 type UnsubscribeFunction = () => void;
@@ -18,6 +20,7 @@ export class PrivateVueMqttClientProvider implements IVueMqttClientProvider {
   public client!: mqtt.MqttClient;
   private clientWatchers: Function[] = [];
   private subscribes: Record<string, SubscribeContext> = {};
+  private router: Router<SubscribeContext> = new Router();
   private _stats: Stats = reactive({
     subscribeTopicNames: []
   });
@@ -90,10 +93,10 @@ export class PrivateVueMqttClientProvider implements IVueMqttClientProvider {
   }
 
   private handleMqttInbound(topic: string, payload: Buffer, packet: mqtt.IPublishPacket) {
-    const context = this.subscribes[topic];
-    if (context) {
+    const contexts = this.router.find(topic);
+    contexts.forEach((context) => {
       context.listeners.forEach(cb => cb(payload, packet));
-    }
+    });
   }
 
   private internalGetSubscribeContext(topic: string): SubscribeContext {
@@ -105,7 +108,8 @@ export class PrivateVueMqttClientProvider implements IVueMqttClientProvider {
       topic: topic,
       started: false,
       listeners: [],
-      client: this.client
+      client: this.client,
+      consumeId: null
     };
     this.subscribes[topic] = context;
     this._stats.subscribeTopicNames.push(topic);
@@ -117,6 +121,7 @@ export class PrivateVueMqttClientProvider implements IVueMqttClientProvider {
 
     context.started = true;
     context.client = client;
+    context.consumeId = this.router.subscribe(topic, context);
 
     return new Promise<void>((resolve, reject) => {
       client.subscribe(topic, (err) => {
@@ -131,6 +136,9 @@ export class PrivateVueMqttClientProvider implements IVueMqttClientProvider {
   }
 
   private internalUnsubscribe(topic: string, context: SubscribeContext): void {
+    if (context.consumeId) {
+      this.router.unsubscribe(context.consumeId);
+    }
     if (context.started) {
       context.client.unsubscribe(topic);
     }
