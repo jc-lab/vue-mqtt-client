@@ -26,6 +26,7 @@
   },
   "homepage": "https://github.com/jc-lab/vue-mqtt-client#readme",
   "devDependencies": {
+    "@types/uuid": "^8.3.4",
     "copyfiles": "^2.4.1",
     "mqtt": "^4.3.7",
     "rimraf": "^3.0.2",
@@ -34,5 +35,8 @@
   "peerDependencies": {
     "mqtt": "*",
     "vue": "^3.0.0"
+  },
+  "dependencies": {
+    "uuid": "^8.3.2"
   }
 }
